@@ -1,20 +1,29 @@
-import { FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 
-const UserForm: React.FC = () => {
+interface UserFormProps {
+  onAddUser: (user: { name: string; email: string; role: string; isActive: boolean }) => void;
+}
+
+const UserForm: React.FC<UserFormProps> = ({ onAddUser }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('user');
   const [isActive, setIsActive] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, role, isActive });
+    const newUser = { name, email, role, isActive };
+    onAddUser(newUser);
+    setName('');
+    setEmail('');
+    setRole('user');
+    setIsActive(false);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div className='form-group mb-2'>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor='name'>Name:</label>
         <input
           type='text'
           id='name'
@@ -27,8 +36,8 @@ const UserForm: React.FC = () => {
         />
       </div>
 
-      <div>
-        <label htmlFor="email">Email:</label>
+      <div className='form-group mb-2'>
+        <label htmlFor='email'>Email:</label>
         <input
           type='email'
           id='email'
