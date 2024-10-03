@@ -1,8 +1,8 @@
-import UserForm from './components/UserForm/UserForm.tsx';
+import UserManagement from './containers/UserManagement/UserManagement.tsx';
 
 const App: React.FC = () => {
   return (
-    <UserForm />
+    <UserManagement />
   );
 };
 
